@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#24343e">
+  <meta name="description" content="Mobile workshop guide for servicing and complete seal replacement on a Husco 5000 (VA-5000 / SSL-2000) sectional hydraulic control valve. Procedures and torques from the official service manual.">
+  <title>Husco 5000 Valve Service Guide</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2324343e'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-size='22' font-family='Arial' font-weight='700' fill='%23f4efe6'%3E5K%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <p class="eyebrow">Workshop guide · SSL-2000 Rev 12/07</p>
+        <h1>Husco 5000 Valve Service</h1>
+        <p class="tagline">Sectional control valve — seal replacement &amp; overhaul</p>
+      </div>
+      <div class="header-actions">
+        <a class="btn btn-pdf" href="https://irp.cdn-website.com/8e9b3e0f/files/uploaded/VA-5000%20Husco%20Valve%20Service%20Manual.pdf" target="_blank" rel="noopener">Official manual (PDF)</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="stage-nav-wrap">
+    <nav class="stage-nav" aria-label="Guide stages">
+      <a href="#overview">Overview</a>
+      <a href="#prep"><span class="dot"></span> Prep <span class="meter"></span></a>
+      <a href="#disassembly"><span class="dot"></span> Disassemble <span class="meter"></span></a>
+      <a href="#seals"><span class="dot"></span> Seals <span class="meter"></span></a>
+      <a href="#reassembly"><span class="dot"></span> Reassemble <span class="meter"></span></a>
+      <a href="#testing"><span class="dot"></span> Test <span class="meter"></span></a>
+      <a href="#troubleshoot">Troubleshoot</a>
+      <a href="#parts">Parts</a>
+      <a href="#torques">Torques</a>
+    </nav>
+    <div class="progress-bar" aria-hidden="true"><span id="progress-fill"></span></div>
+  </div>
+
+  <main id="main">
+    <!-- OVERVIEW -->
+    <section id="overview" class="stage">
+      <h2>Overview</h2>
+      <p class="lede">A practical, mobile-first walkthrough for resealing a Husco 5000 series sectional hydraulic control valve. Every torque and procedure here is taken from the official <strong>5000 Valve Series Service Manual (SSL-2000, Rev 12/07 / VA-5000)</strong>. If this guide and the manual ever disagree, follow the manual.</p>
+
+      <div class="callout manual">
+        <h3>Official source</h3>
+        <p><a href="https://irp.cdn-website.com/8e9b3e0f/files/uploaded/VA-5000%20Husco%20Valve%20Service%20Manual.pdf" target="_blank" rel="noopener">Download the Husco VA-5000 / SSL-2000 Service Manual (PDF)</a>. Keep it on the bench. This app is a workshop aid, not a replacement.</p>
+      </div>
+
+      <div class="card">
+        <h3>What this valve is</h3>
+        <dl class="specs">
+          <div><dt>Family</dt><dd>Husco 5000 sectional</dd></div>
+          <div><dt>Manual</dt><dd>SSL-2000 Rev 12/07</dd></div>
+          <div><dt>Nominal flow</dt><dd>20 gpm (75 lpm)</dd></div>
+          <div><dt>Operating pressure</dt><dd>3000 psi (207 bar)</dd></div>
+          <div><dt>Seals</dt><dd>Buna-N standard; Viton optional</dd></div>
+          <div><dt>Filtration</dt><dd>ISO 20/18/13</dd></div>
+          <div><dt>Max sections</dt><dd>11 spool sections</dd></div>
+          <div><dt>Max tank / return</dt><dd>500 psi</dd></div>
+        </dl>
+        <p class="cite">Technical Data page of the official manual. The manual prints “Vitron” for the optional compound; that is almost certainly Viton. Higher pressure applications: consult Husco. Max return pressure matters — excessive back pressure is a listed cause of leakage past spool seals (§2, p. 22).</p>
+      </div>
+
+      <div class="card">
+        <h3>Typical applications</h3>
+        <p>Used on ASV / Terex Posi-Track loaders (PT-50, PT-60 and similar) and other equipment. The valve itself is a general 5000-series sectional unit — identify <em>your</em> assembly (section count, spool type, end mechanism) before ordering parts. Name tags and casting IDs are in §4.2–4.4, pp. 57–59.</p>
+      </div>
+
+      <div class="card">
+        <h3>Two jobs, don’t mix them up</h3>
+        <ul>
+          <li><strong>Field spool-seal replacement (§3.3, p. 28)</strong> — o-rings and wipers at each end of a spool. The valve stack usually stays together.</li>
+          <li><strong>Complete reseal</strong> — also includes section-joint o-rings (and load-check poppet/spring if you are changing them). That requires unstacking the valve per the build sequence in §3.1, pp. 24–27.</li>
+        </ul>
+        <p>End-cap style changes the extra seals you need. A mechanical spring-return cap uses the basic spool o-ring and wiper. A hydraulic-pilot cap (common on some loader valves, including the example RC30 list) also uses AS568A-019, AS568A-022 and backup ring 55047 — see <a href="#parts">Parts</a>.</p>
+      </div>
+
+      <div class="callout warn">
+        <h3>How this guide is sourced</h3>
+        <ul>
+          <li>Steps, torques and kit contents with a section/page cite come from the official manual.</li>
+          <li>Anything labelled <strong>Not in manual / assumption</strong> or <strong>Standard workshop practice</strong> is not a Husco procedure. Skip or adapt it if it doesn’t fit your machine.</li>
+          <li>No torque in this app was invented. If the manual does not state a value (for example relief-valve installation torque), it is called out as missing.</li>
+        </ul>
+      </div>
+
+      <div class="tool-row no-print">
+        <span class="stat" id="progress-label"></span>
+        <button type="button" class="btn btn-danger" id="reset-progress">Reset checked steps</button>
+        <button type="button" class="btn btn-ghost" onclick="window.print()">Print / save PDF</button>
+      </div>
+    </section>
+
+    <!-- PREP -->
+    <section id="prep" class="stage">
+      <h2>Prep</h2>
+      <p class="lede">Safety, tools, parts and a clean, numbered plan before anything comes apart.</p>
+
+      <aside class="callout safety">
+        <h3>Safety — standard workshop practice</h3>
+        <p>The official valve manual does not include a machine-level safety chapter. Treat the following as standard hydraulic practice, not Husco procedure:</p>
+        <ul>
+          <li><strong>Pressure and stored energy.</strong> Park on level ground, lower or mechanically block all implements, stop the engine, and relieve system pressure (including accumulators if fitted) before cracking a fitting. Hydraulic oil under pressure can inject into skin — a medical emergency.</li>
+          <li><strong>Hot oil.</strong> Let the system cool. Wear eye protection, gloves and stay clear of spray paths.</li>
+          <li><strong>Cleanliness.</strong> Dirt is the enemy of close-fitted spools (§3.2, p. 28). Clean the valve and surrounding area before you open it; cap hoses and ports.</li>
+          <li><strong>Support the machine</strong> per the equipment manual. This guide does not cover loader-specific removal.</li>
+        </ul>
+      </aside>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="prep-manual"></span>
+        <div>
+          <h3><span class="num-badge">1</span> Have the official manual on the bench</h3>
+          <p>Open the <a href="https://irp.cdn-website.com/8e9b3e0f/files/uploaded/VA-5000%20Husco%20Valve%20Service%20Manual.pdf" target="_blank" rel="noopener">SSL-2000 / VA-5000 PDF</a>. This guide follows §§2, 3.1–3.4 and 4.6–4.8. Use the manual if you hit an end mechanism or option not covered step-by-step here (detent variants, solenoid, levers).</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="prep-id"></span>
+        <div>
+          <h3><span class="num-badge">2</span> Identify the assembly in front of you</h3>
+          <p>Count spool sections. Note inlet/outlet orientation (left- or right-hand — §4.5, p. 60). Look at each end cap: mechanical spring-return, detent, hydraulic-pilot, solenoid, or auto kick-out. That choice decides which extra seals you need. Read the name tag if present (§4.2, p. 57).</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="prep-kit"></span>
+        <div>
+          <h3><span class="num-badge">3</span> Confirm the seal / service kit</h3>
+          <p>Official kits are in §4.7, p. 61 — see the <a href="#parts">Parts</a> stage. A 1-section seal kit is Husco <span class="pn">51086</span>. A 5-section service kit (includes check poppets and springs) is <span class="pn">61530</span>. The 1-section <em>service</em> kit is listed in the manual with contents but <strong>no part number in the Part No. column</strong>.</p>
+          <p>Match quantities to your section count. If you have hydraulic-pilot caps, the basic seal kit does not include the cap-face and backup rings — order those from the end-mechanism list in §3.4, p. 35.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="prep-tools"></span>
+        <div>
+          <h3><span class="num-badge">4</span> Gather tools</h3>
+          <p><strong>From the manual (§3.1, p. 24; §3.3, p. 28; §3.4):</strong></p>
+          <ul>
+            <li>½″ and 9/16″ open-end or box wrenches</li>
+            <li>Torque wrench</li>
+            <li>½″ and 9/16″ thin-wall sockets (bottom tie-rod nuts are ½″ hex; top nuts are 9/16″ hex — §4.8, p. 62)</li>
+            <li>3/16″ Allen / hex key (seal-plate cap screws and spool ends)</li>
+            <li>Paint pen (number spools and housings)</li>
+            <li>Dental pick (to lift wiper and o-ring — do not nick the counterbore)</li>
+            <li>Brass, copper or aluminium soft jaws if a spool goes in a vise (§3.2)</li>
+            <li>Loctite 242 (blue) for spool-end threads (§3.4)</li>
+            <li>A steel rod that will pass through the tang / clevis hole (alternate seal method only)</li>
+            <li>High-quality lithium-based grease where the manual specifies it (some end-mechanism o-rings and detents)</li>
+            <li>A smooth, level metal plate if the bench is not flat and smooth (§3.1, p. 24)</li>
+          </ul>
+          <p><strong>Standard workshop practice (not a manual list):</strong> drain pan, lint-free rags, approved cleaner, caps for hoses and ports, parts trays, marker tape, PPE.</p>
+          <p class="cite">The manual says “lubricate the seal counter bores” in §3.3 but does not name the lubricant for those bores. Do not invent a fluid — use a clean hydraulic oil or the lubricant your kit / Husco specifies, and use lithium grease only where §3.4 calls for it.</p>
+        </div>
+      </label>
+
+      <figure>
+        <img src="figures/fig-tools.jpg" alt="Torque wrench, thin-wall sockets, open-end wrenches and a flat metal plate laid out for valve assembly" width="1000" height="546" loading="lazy">
+        <figcaption>Tools illustrated for basic valve assembly. Official manual §3.1, p. 24.</figcaption>
+      </figure>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="prep-machine"></span>
+        <div>
+          <h3><span class="num-badge">5</span> Depressurise and isolate the valve</h3>
+          <p>Follow the <em>machine</em> service manual to lower/block implements, shut down, and relieve pressure, then clean around the valve and cap open lines. <strong>Standard workshop practice — not in the Husco valve manual.</strong></p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="prep-bench"></span>
+        <div>
+          <h3><span class="num-badge">6</span> Set up a clean, flat working surface</h3>
+          <p>Lay components out on a clean, flat surface. If the work space is not smooth and level, use a metal plate so the sections stay aligned when you torque the tie rods.</p>
+          <p class="cite">§3.1, p. 24.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="prep-number-plan"></span>
+        <div>
+          <h3><span class="num-badge">7</span> Plan the numbering</h3>
+          <p>Spools are fitted to housings with very little clearance and must go back in the <strong>same bore</strong>. You will number spools and housings with a paint pen on the tang / clevis ends so ink does not contaminate the seals.</p>
+          <p class="cite">§3.3 Recommended method, step A, p. 28; §3.2 spool handling, p. 28.</p>
+        </div>
+      </label>
+    </section>
+
+    <!-- DISASSEMBLY -->
+    <section id="disassembly" class="stage">
+      <h2>Disassembly</h2>
+      <p class="lede">Number first. Then either pull spools for a field seal job, or unstack the valve if section o-rings or load-check parts are being replaced.</p>
+
+      <aside class="callout warn">
+        <h3>Spool handling — §3.2, p. 28</h3>
+        <p>Clearance is very small. Do not bend a spool or raise material on its outside diameter.</p>
+        <ul>
+          <li>Do not drop spools on hard surfaces.</li>
+          <li>If you clamp a spool in a vise, use brass, copper or aluminium soft jaws.</li>
+          <li>Husco collets for standard spool sizes are available for holding a spool outside the valve.</li>
+        </ul>
+      </aside>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="dis-number"></span>
+        <div>
+          <h3><span class="num-badge">1</span> Number every spool and its housing</h3>
+          <p>Use a paint pen so each spool can be reinstalled in the same bore. Number the spool on the tang / clevis ends to avoid contaminating the seals.</p>
+          <p class="cite">§3.3 Recommended method, step A, p. 28.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="dis-link"></span>
+        <div>
+          <h3><span class="num-badge">2</span> Disconnect handles or linkage</h3>
+          <p>Free the tang / clevis end so the spool can come out. Lever-kit hardware is in §3.5 (pp. 44–46) if you need those exploded views.</p>
+          <p class="cite">Machine-side hose and mounting removal is <strong>not in the valve manual</strong> — follow the equipment manual and cap ports.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="dis-spool"></span>
+        <div>
+          <h3><span class="num-badge">3</span> Remove the spool and end mechanism from the bore</h3>
+          <p>This is the start of the recommended field-seal method: take the spool and its end mechanism out of the housing as a unit (you will split the cap-end mechanism in the next steps).</p>
+          <p>If you are converting to or inspecting a detent end, §3.4 (p. 39) gives a matching sequence: remove cap screws and end cap, then slide the spool and end mechanism out as one unit. <strong>Caution: a centering spring has about 30 lbs of pre-load</strong> when you later unscrew the spool end (p. 39).</p>
+          <p class="cite">§3.3 Recommended method, step B, p. 28; detent disassembly §3.4, p. 39.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="dis-tang-seals"></span>
+        <div>
+          <h3><span class="num-badge">4</span> Remove the tang / clevis-end seal, wiper and seal plate</h3>
+          <p>A dental pick can be used to remove the wiper and o-ring. Use caution — do not damage the seal counterbore.</p>
+          <p class="cite">§3.3 Recommended method, step C, p. 28.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="dis-cap"></span>
+        <div>
+          <h3><span class="num-badge">5</span> Remove the end mechanism from the cap end of the spool</h3>
+          <p>Keep spools and end-mechanism parts clean and undamaged. If threadlocker is present, the spool end may be stubborn. Use soft jaws if the spool must be held. Do not scar the spool diameter.</p>
+          <p class="cite">§3.3 Recommended method, step D, p. 28, which refers back to “Spool Handling” (§3.2).</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="dis-stack"></span>
+        <div>
+          <h3><span class="num-badge">6</span> Only if you need section o-rings or load-check parts: unstack the valve</h3>
+          <p>Section-joint o-rings (item 564) and the load-check poppet / spring sit between sections. Replacing them means taking the stack apart.</p>
+          <p>Support the assembly on a flat surface so sections cannot drop or twist as the tie rods come loose. Keep inlet, each spool section and the outlet in order. Watch for the load-check spring and poppet as sections come apart — they live in the load-check cavity of each spool section (nose of the poppet toward the cavity, spring in the hollow of the poppet — §3.1, p. 25).</p>
+          <div class="callout assume" style="margin-top:10px">
+            <h3>Not in manual</h3>
+            <p>§3.1 specifies the <em>tightening</em> order and torques but does not give a loosening sequence. No extra procedure was invented here. Ease the three tie-rod nuts off evenly enough to keep the stack under control, and do not force misaligned sections.</p>
+          </div>
+        </div>
+      </label>
+    </section>
+
+    <!-- SEALS -->
+    <section id="seals" class="stage">
+      <h2>Seal replacement</h2>
+      <p class="lede">Official §3.3, p. 28 — <em>Spool Seal Field Replacements</em>. Use the recommended method unless you have a reason to leave the spool in the bore.</p>
+
+      <aside class="callout warn">
+        <h3>Where a short summary differs from the manual</h3>
+        <p>A common six-step summary leaves out three official recommended steps: removing the end mechanism from the <em>cap end</em> of the spool (D), reassembling that cap end with <em>new</em> seals per the end-mechanism instruction (G), and reinstalling the spool and end mechanism into the bore <em>before</em> installing the tang / clevis seal and wiper with the seal plate (H then I). This guide follows the manual’s lettered steps.</p>
+      </aside>
+
+      <div class="tabs" role="tablist" aria-label="Seal replacement method">
+        <button type="button" role="tab" aria-selected="true" aria-controls="method-rec" id="tab-rec">Recommended method</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="method-alt" id="tab-alt">Alternate method</button>
+      </div>
+
+      <div class="tab-panel" id="method-rec" role="tabpanel" aria-labelledby="tab-rec" data-print-title="Recommended method (§3.3)">
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-a"></span>
+          <div>
+            <h3><span class="num-badge">A</span> Number spools and housings</h3>
+            <p>Paint-pen numbers so each spool returns to the same bore. Number on the tang / clevis ends to avoid contaminating the seals.</p>
+            <p class="cite">§3.3 Recommended, step A, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-b"></span>
+          <div>
+            <h3><span class="num-badge">B</span> Remove the spool and end mechanism from the bore</h3>
+            <p class="cite">§3.3 Recommended, step B, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-c"></span>
+          <div>
+            <h3><span class="num-badge">C</span> Remove the seal, wiper and seal plate from the tang / clevis end</h3>
+            <p>A dental pick can be used to remove the wiper and o-ring. Use caution to avoid damaging the seal counterbore.</p>
+            <p class="cite">§3.3 Recommended, step C, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-d"></span>
+          <div>
+            <h3><span class="num-badge">D</span> Remove the end mechanism from the cap end of the spool</h3>
+            <p>Handle spools and end-mechanism components with care so they stay clean and undamaged. See §3.2 spool handling.</p>
+            <p class="cite">§3.3 Recommended, step D, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-e"></span>
+          <div>
+            <h3><span class="num-badge">E</span> Clean the spool and the seal counterbores</h3>
+            <p>Remove all foreign material from the spool and from the seal counterbores.</p>
+            <p class="cite">§3.3 Recommended, step E, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-f"></span>
+          <div>
+            <h3><span class="num-badge">F</span> Lubricate the seal counterbores</h3>
+            <p>Lubricate the seal counterbores on the cap end and the tang / clevis end of the housing.</p>
+            <p class="cite">§3.3 Recommended, step F, p. 28. Lubricant type for these bores is <strong>not specified</strong> in the manual.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-g"></span>
+          <div>
+            <h3><span class="num-badge">G</span> Reassemble the cap end with new seals</h3>
+            <p>Reassemble the cap end of the spool with the new seals per the applicable end-mechanism repair instruction (§3.4). Typical mechanical spring-return and hydraulic-pilot callouts are in <a href="#reassembly">Reassembly</a>.</p>
+            <p class="cite">§3.3 Recommended, step G, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-h"></span>
+          <div>
+            <h3><span class="num-badge">H</span> Reinstall the spool and end mechanism into the same bore</h3>
+            <p class="cite">§3.3 Recommended, step H, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-r-i"></span>
+          <div>
+            <h3><span class="num-badge">I</span> Install the new seal and wiper at the tang / clevis end</h3>
+            <p>Install the new seal and wiper onto the tang / clevis end of the spool using the seal plate to push them in, then complete the seal-plate cap-screw installation and torque.</p>
+            <p>Seal-plate cap screws (typically ¼-20 × 0.75″ socket head, 3/16″ Allen, item 5035 on the spring-return cap) are torqued to <strong>7 ± 1.0 ft-lbs (9.5 ± 1.4 N-m)</strong>.</p>
+            <p class="cite">§3.3 Recommended, step I, p. 28 (install and torque). Numeric torque is from the §3.4 exploded views, e.g. p. 29, and from detent installation step 6, p. 42: “tighten to 7±1 ft-lbs (9.5±1.4 N-m).”</p>
+          </div>
+        </label>
+      </div>
+
+      <div class="tab-panel" id="method-alt" role="tabpanel" aria-labelledby="tab-alt" hidden data-print-title="Alternate method (§3.3)">
+        <aside class="callout">
+          <h3>What changes</h3>
+          <p>The alternate method leaves the spool in the bore. A steel rod through the tang / clevis holes stops the spool from turning while you work on the cap-end mechanism. There is no separate “number first / remove from bore” pair of steps in this method — if you have not already numbered parts, do that before anything can be swapped.</p>
+        </aside>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-a-a"></span>
+          <div>
+            <h3><span class="num-badge">A</span> Remove the seal, wiper and seal plate from the tang / clevis end</h3>
+            <p>A dental pick can be used to remove the wiper and o-ring, using caution to avoid damaging the seal counterbores.</p>
+            <p class="cite">§3.3 Alternate, step A, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-a-b"></span>
+          <div>
+            <h3><span class="num-badge">B</span> Pin the spool with a steel rod</h3>
+            <p>Install a steel rod through the spool tang / clevis holes to prevent the spools from turning during end-mechanism disassembly and reassembly.</p>
+            <p class="cite">§3.3 Alternate, step B, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-a-c"></span>
+          <div>
+            <h3><span class="num-badge">C</span> Remove the end mechanism from the cap end of the spool</h3>
+            <p class="cite">§3.3 Alternate, step C, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-a-d"></span>
+          <div>
+            <h3><span class="num-badge">D</span> Clean the spool and the seal counterbores</h3>
+            <p>Remove all foreign material from the spool and seal counterbores.</p>
+            <p class="cite">§3.3 Alternate, step D, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-a-e"></span>
+          <div>
+            <h3><span class="num-badge">E</span> Lubricate the seal counterbores</h3>
+            <p>Lubricate the seal counterbores on the cap and tang / clevis ends of the housing. Lubricant type for these bores is not specified.</p>
+            <p class="cite">§3.3 Alternate, step E, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-a-f"></span>
+          <div>
+            <h3><span class="num-badge">F</span> Reassemble the cap end with new seals</h3>
+            <p>Per the applicable end-mechanism repair instruction in §3.4.</p>
+            <p class="cite">§3.3 Alternate, step F, p. 28.</p>
+          </div>
+        </label>
+        <label class="step">
+          <span class="check"><input type="checkbox" data-id="seal-a-g"></span>
+          <div>
+            <h3><span class="num-badge">G</span> Install the new seal and wiper at the tang / clevis end</h3>
+            <p>Use the seal plate to push them in, then complete cap-screw installation and torque — <strong>7 ± 1.0 ft-lbs (9.5 ± 1.4 N-m)</strong> for the seal-plate screws, from §3.4.</p>
+            <p class="cite">§3.3 Alternate, step G, p. 28; torque from §3.4 / p. 42.</p>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <!-- REASSEMBLY -->
+    <section id="reassembly" class="stage">
+      <h2>Reassembly</h2>
+      <p class="lede">End mechanisms first (§3.4), then — if you split the stack — the official build and torque sequence (§3.1).</p>
+
+      <h3 style="margin-top:0">End mechanism — mechanical spring-return (solid spool)</h3>
+      <p>Kit <span class="pn">B10-100</span> is the 3-position spring-return-to-neutral end for solid spools. Other end types have their own pages in §3.4 (pp. 29–43).</p>
+      <figure>
+        <img src="figures/fig-sc-endmech.jpg" alt="Exploded and sectioned view of a 3-position spring-return end mechanism with 7 plus or minus 1 foot-pound torque callouts on the spool end and cap screws" width="1067" height="806" loading="lazy">
+        <figcaption>3-position spring return ‘SC’ to neutral, solid spools. Official manual §3.4, p. 29. Both the spool end (5) and the two cap screws (8) are marked 7 ± 1.0 ft-lbs.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Ref</th><th>Part</th><th>Description</th><th>Qty</th></tr>
+          </thead>
+          <tbody>
+            <tr><td></td><td class="pn">B10-100</td><td>End mechanism kit, 3-pos. SC, solid spools</td><td></td></tr>
+            <tr><td>1</td><td class="pn">130</td><td>O-ring AS568A-113 70 duro nitrile</td><td>1</td></tr>
+            <tr><td>2</td><td class="pn">5012</td><td>Seal plate</td><td>1</td></tr>
+            <tr><td>3</td><td class="pn">5013</td><td>Spring seat</td><td>2</td></tr>
+            <tr><td>4</td><td class="pn">5014</td><td>Spring</td><td>1</td></tr>
+            <tr><td>5</td><td class="pn">5015</td><td>Spool end, 3/16″ Allen — clean threads, Loctite 242, 7 ± 1.0 ft-lbs</td><td>1</td></tr>
+            <tr><td>6</td><td class="pn">5028</td><td>Spool cap</td><td>1</td></tr>
+            <tr><td>7</td><td class="pn">5029</td><td>Wiper</td><td>1</td></tr>
+            <tr><td>8</td><td class="pn">5035</td><td>Cap screw, socket hd, ¼-20 × 0.75″, 3/16″ Allen, 7 ± 1.0 ft-lbs (2 places)</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cite">§3.4, p. 29. Footnote: clean threads and apply Loctite 242 (blue) before installing the spool end. * 7 ± 1.0 ft-lbs = 9.5 ± 1.4 N-m.</p>
+
+      <aside class="callout safety">
+        <h3>Do not over-torque the spool end</h3>
+        <p>When installing a detent (and this is the only place the manual states the warning in words): torque the spool end to 7 ft-lbs. The spring will require approximately 25 lbs of force to compress. <strong>Exceeding 7 ft-lbs (9.5 N-m) on the spool end will cause spool deformation and result in spool bind.</strong></p>
+        <p class="cite">§3.4 Installation of a Detent End Mechanism, steps 2 and 6, pp. 41–42. Same 7 ± 1 ft-lbs figure is marked on the spring-return and hydraulic-pilot drawings.</p>
+      </aside>
+
+      <h3>End mechanism — hydraulic pilot (solid spool)</h3>
+      <p>Kit <span class="pn">B12-108</span>, 3-position spring-centered hydraulic remote, is the source of the extra cap seals on some loader valves (see the RC30 example on the <a href="#parts">Parts</a> stage). A die-cast cap variant with the same seal sizes is on p. 36.</p>
+      <figure>
+        <img src="figures/fig-pilot-endmech.jpg" alt="Exploded and sectioned view of a hydraulic-pilot end mechanism showing cap o-rings, backup ring and 7 plus or minus 1 foot-pound cap-screw torques" width="1074" height="824" loading="lazy">
+        <figcaption>Hydraulic-pilot end mechanism. Official manual §3.4, p. 35. Cap screws (4) and (5) and spool end (10) are marked 7 ± 1.0 ft-lbs. O-rings (1) and (2) are lubricated with lithium-based grease.</figcaption>
+      </figure>
+      <ul>
+        <li><span class="pn">41-019</span> — O-ring AS568A-019 70 duro nitrile, qty 2 per end mechanism. Lubricate with a high-quality lithium-based grease.</li>
+        <li><span class="pn">5141</span> — O-ring AS568A-022 70 duro nitrile, qty 1. Same grease note.</li>
+        <li><span class="pn">55047</span> — backup ring, qty 1.</li>
+        <li>Cap screws: <span class="pn">5243</span> ¼-20 × 1.50″ (qty 2) and <span class="pn">52824</span> ¼-20 × 3.00″ (qty 2), 3/16″ Allen, 7 ± 1.0 ft-lbs.</li>
+        <li>Spool end <span class="pn">55036-1</span>: Loctite 242, 7 ± 1.0 ft-lbs, 3/16″ Allen.</li>
+      </ul>
+      <p class="cite">§3.4, p. 35.</p>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="re-end"></span>
+        <div>
+          <h3><span class="num-badge">1</span> Build each cap end with new seals, then fit the tang / clevis seals as in §3.3</h3>
+          <p>Follow the method you used under <a href="#seals">Seal replacement</a>: cap end first, spool back into the same numbered bore, then seal and wiper pushed in with the seal plate, screws torqued to 7 ± 1.0 ft-lbs.</p>
+        </div>
+      </label>
+
+      <h3>Rebuilding the section stack — §3.1, pp. 24–27</h3>
+      <p>Skip this block if you only did a field spool-seal job and never unstacked the valve.</p>
+
+      <figure>
+        <img src="figures/fig-layout.jpg" alt="Inlet, spool sections, outlet, tie rods, o-rings and load-check parts laid out on a clean bench" width="1000" height="625" loading="lazy">
+        <figcaption>Lay out valve components on a clean, flat working surface. The inlet has an o-ring; each spool section has an o-ring, load-check poppet and load-check spring. Official manual §3.1, p. 24.</figcaption>
+      </figure>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="re-nuts"></span>
+        <div>
+          <h3><span class="num-badge">2</span> Start the tie-rod nuts on the short thread</h3>
+          <p>Thread tie-rod nuts onto the short threaded end of each tie rod, running the nuts up the entire length of those threads.</p>
+          <p class="cite">§3.1, p. 25.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="re-inlet"></span>
+        <div>
+          <h3><span class="num-badge">3</span> Tie rods through the inlet, o-ring in its groove</h3>
+          <p>Insert the tie rods through the inlet housing, stand the inlet on end with the rods pointing up, and install the o-ring in its groove. Make sure the o-ring is completely seated.</p>
+          <p class="cite">§3.1, p. 25.</p>
+        </div>
+      </label>
+      <figure>
+        <img src="figures/fig-tierods.jpg" alt="Hand installing the inlet-section o-ring with three tie rods pointing up through the inlet housing" width="1000" height="547" loading="lazy">
+        <figcaption>Inlet on end, tie rods up, o-ring being seated. Official manual §3.1, p. 25.</figcaption>
+      </figure>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="re-section"></span>
+        <div>
+          <h3><span class="num-badge">4</span> Stack each spool section: o-ring, then load-check poppet and spring</h3>
+          <p>Place the first spool section over the inlet with the o-ring groove facing upward and install the o-ring fully in the groove. Install the load-check poppet into its cavity <strong>nose-first</strong>. Then place the load-check spring in the hollow cavity inside the check poppet. Repeat for each additional spool section. Do not pinch the o-ring or the load-check spring between sections. Finally, position the outlet over the last spool section.</p>
+          <p class="cite">§3.1, pp. 25–26.</p>
+        </div>
+      </label>
+      <figure>
+        <img src="figures/fig-loadcheck.jpg" alt="Installing a load-check poppet nose-first into the cavity of a spool section stacked on the inlet" width="1000" height="601" loading="lazy">
+        <figcaption>Load-check poppet, nose-first, then the spring in the poppet. Official manual §3.1, p. 25.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/fig-outlet.jpg" alt="Outlet section being lowered onto the last spool section over the three tie rods" width="1000" height="670" loading="lazy">
+        <figcaption>Outlet going on last. Official manual §3.1, p. 26.</figcaption>
+      </figure>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="re-torque"></span>
+        <div>
+          <h3><span class="num-badge">5</span> Hand-tighten, align on a flat plate, then torque in this order</h3>
+          <p>After hand-tightening all three tie-rod nuts, stand the valve on its mounting feet on a smooth, flat surface. Apply downward pressure on the inlet and outlet to keep the stack aligned before torquing.</p>
+          <p>Torque the <strong>lower two</strong> tie-rod nuts first at <strong>18 ± 2 ft-lbs (24.4 ± 2.7 N-m)</strong>, then the <strong>upper</strong> tie rod at <strong>33 ± 3.5 ft-lbs (44.7 ± 4.7 N-m)</strong>. During torquing, one hand stays on top of the valve so all mounting feet stay in contact with the working surface; the other hand works the torque wrench.</p>
+          <details class="why">
+            <summary>Wrench-stop technique</summary>
+            <p>A noteworthy technique is to position the open-end or box wrench over the nut so that rotation during torquing is prevented by the wrench making contact with the working surface.</p>
+            <p class="cite">§3.1, p. 27.</p>
+          </details>
+          <p class="cite">§3.1, p. 26 (sequence and both torques); repeated on the §4.8 diagram, p. 62. Hardened washers are required for assemblies with more than eight sections (§4.8).</p>
+        </div>
+      </label>
+      <figure>
+        <img src="figures/fig-torque.jpg" alt="Valve sitting on a flat plate while a torque wrench is applied to a lower tie-rod nut and a hand holds the assembly down" width="1000" height="670" loading="lazy">
+        <figcaption>Feet on a flat plate, downward pressure, lower nuts first. Official manual §3.1, p. 26.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/fig-wrench.jpg" alt="Backup wrench braced against the metal plate so the nut cannot rotate while the opposite nut is torqued" width="1000" height="589" loading="lazy">
+        <figcaption>Backup wrench stopped against the working surface. Official manual §3.1, p. 27.</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/fig-tierod-diagram.jpg" alt="Outlet-end view of the three tie rods with 33 plus or minus 3.5 foot-pounds on the top nut and 18 plus or minus 2 foot-pounds on the two bottom nuts, plus tie-rod kit part numbers by section count" width="1100" height="478" loading="lazy">
+        <figcaption>Tie-rod kit diagram and part numbers (6131-1 through 6131-11). Official manual §4.8, p. 62. Top nuts 9/16″ hex; bottom nuts ½″ hex.</figcaption>
+      </figure>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="re-plugs"></span>
+        <div>
+          <h3><span class="num-badge">6</span> Install auxiliary valves and plugs, and torque to the published specs</h3>
+          <p>§3.1, p. 27 says: “Install auxiliary valves and plugs and torque to proper specifications.” SAE plug torques are in §4.6, p. 60 (also listed under <a href="#torques">Torques</a>).</p>
+          <div class="callout assume" style="margin-top:10px">
+            <h3>Not in this manual</h3>
+            <p><strong>Relief-valve installation torque is not stated</strong> in SSL-2000 Rev 12/07, even though §2 repeatedly says to tighten a relief “to the proper torque value.” Do not invent a number. Use a figure from Husco or the machine manual if you have one; otherwise stop and get the spec.</p>
+          </div>
+        </div>
+      </label>
+      <figure>
+        <img src="figures/fig-aux.jpg" alt="Hand installing a plug or auxiliary valve into a 5000-series section" width="1000" height="601" loading="lazy">
+        <figcaption>Auxiliary valves and plugs. Official manual §3.1, p. 27 — torque values for these parts are not on this page; see §4.6 for SAE plugs only.</figcaption>
+      </figure>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="re-mount"></span>
+        <div>
+          <h3><span class="num-badge">7</span> Remount the valve on three points only</h3>
+          <p>Troubleshooting lists “Valve stack not correctly mounted / installed” and the fix: <strong>ensure that only 3 mounting points are being used</strong>. A bind here can make a spool stick or fail to center.</p>
+          <p class="cite">§2, p. 23. Machine-specific hose routing and linkage setup are not in the valve manual.</p>
+        </div>
+      </label>
+    </section>
+
+    <!-- TESTING -->
+    <section id="testing" class="stage">
+      <h2>Testing / leak check</h2>
+      <p class="lede">The official manual does not include a formal post-repair test procedure or a break-in cycle. What follows is a cautious leak and function check, tied back to the troubleshooting table in §2.</p>
+
+      <aside class="callout assume">
+        <h3>Not in manual</h3>
+        <p>No pressure-test stand procedure, no “cycle N times,” and no relief reset sequence are given in SSL-2000 Rev 12/07. Use the machine service manual for system pressure checks and relief setting. Do not guess pressures or relief torque.</p>
+      </aside>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="test-static"></span>
+        <div>
+          <h3><span class="num-badge">1</span> Static look-over before start-up</h3>
+          <p><strong>Standard practice:</strong> fittings tight, ports capped or hosed correctly (pump to inlet P, return to tank T — §2, p. 22), three-point mount free of bind, linkage free, oil at the correct level, filter serviceable.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="test-leaks"></span>
+        <div>
+          <h3><span class="num-badge">2</span> Start, stay clear of implements, and watch for external leaks</h3>
+          <p><strong>Standard practice</strong> for how you start and warm the machine. If you see oil, use §2 (pp. 22–23):</p>
+          <ul>
+            <li><strong>Past spool seals</strong> — dirt, worn o-ring, loose seal plate, or excessive back pressure / restricted return (check the return filter and look for a kinked or pinched return hose). Max tank / return pressure in Technical Data is 500 psi.</li>
+            <li><strong>Between sections</strong> — insufficient tie-rod torque, pinched section o-ring, or a check-valve spring pinched between sections (that can also damage a housing face — if the face is damaged, the manual says replace the entire spool section).</li>
+            <li><strong>Past a relief valve</strong> — not torqued, jam nut / adjust screw loose, worn o-ring, or damaged cavity.</li>
+          </ul>
+          <p class="cite">§2, p. 22; Technical Data (max return 500 psi).</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="test-functions"></span>
+        <div>
+          <h3><span class="num-badge">3</span> Check functions against the §2 symptoms</h3>
+          <ul>
+            <li>Builds pressure at the main and work ports?</li>
+            <li>Function speed reasonable, spool metering smooth?</li>
+            <li>Spool returns to center and is not sticky?</li>
+            <li>If detented, does it stay in the detented position?</li>
+            <li>Does it hold load, without excessive cylinder drift or a momentary droop?</li>
+          </ul>
+          <p>If anything is off, go to <a href="#troubleshoot">Troubleshooting</a> rather than inventing a fix. Several “won’t build pressure / slow / drift” causes are contamination or an out-of-adjustment relief — those adjustments belong with a known pressure gauge and the machine manual.</p>
+          <p class="cite">§2, pp. 22–23.</p>
+        </div>
+      </label>
+
+      <label class="step">
+        <span class="check"><input type="checkbox" data-id="test-filter"></span>
+        <div>
+          <h3><span class="num-badge">4</span> Oil cleanliness</h3>
+          <p>Recommended filtration is <strong>ISO 20/18/13</strong>. Dirty oil is a listed cause of a spool that sticks or will not return to center. After a reseal is a good time to confirm the return filter and oil condition.</p>
+          <p class="cite">Technical Data; §2, p. 23.</p>
+        </div>
+      </label>
+    </section>
+
+    <!-- TROUBLESHOOT -->
+    <section id="troubleshoot" class="stage">
+      <h2>Troubleshooting</h2>
+      <p class="lede">Official §2, pp. 22–23. Wording tightened only where the printed table wrapped mid-sentence. “Tighten to proper torque” means the values in <a href="#torques">Torques</a> — except relief-valve body torque, which this manual never states.</p>
+      <input class="search" id="trouble-search" type="search" placeholder="Filter symptoms, causes or fixes…" autocomplete="off">
+
+      <div class="table-wrap" id="trouble-table">
+        <table>
+          <thead>
+            <tr><th>Trouble</th><th>Potential cause</th><th>Potential fix</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>External leakage — past spool seals</td><td>Dirt / contamination</td><td>Replace o-ring and wiper</td></tr>
+            <tr><td>External leakage — past spool seals</td><td>Worn / damaged o-ring</td><td>Replace o-ring and wiper</td></tr>
+            <tr><td>External leakage — past spool seals</td><td>Loose seal plate</td><td>Tighten seal plate screws</td></tr>
+            <tr><td>External leakage — past spool seals</td><td>Excessive back pressure, blocked or restricted return to reservoir</td><td>Check / replace hydraulic return-line filter. Check for a kinked or pinched return hose</td></tr>
+            <tr><td>External leakage — between sections</td><td>Insufficient tie-rod torque</td><td>Tighten to the proper torque value</td></tr>
+            <tr><td>External leakage — between sections</td><td>Pinched or damaged section o-ring</td><td>Disassemble the valve stack and replace the o-ring</td></tr>
+            <tr><td>External leakage — between sections</td><td>Check-valve spring pinched between sections</td><td>Disassemble and replace the check-valve spring. Inspect the housing surface; if damaged, replace the entire spool section</td></tr>
+            <tr><td>External leakage — past relief valve</td><td>Relief not properly torqued into the cavity</td><td>Tighten to the proper torque value (value not stated in this manual)</td></tr>
+            <tr><td>External leakage — past relief valve</td><td>Adjust screw / jam nut not properly torqued</td><td>Tighten to the proper torque value (value not stated in this manual)</td></tr>
+            <tr><td>External leakage — past relief valve</td><td>Damaged or worn o-ring</td><td>Replace o-ring and wiper</td></tr>
+            <tr><td>External leakage — past relief valve</td><td>Damaged cavity / housing</td><td>Replace the spool section</td></tr>
+            <tr><td>Does not build pressure (main and/or workport)</td><td>Incorrect hydraulic connections</td><td>Confirm pump supply and tank return are on inlet (P) and outlet (T)</td></tr>
+            <tr><td>Does not build pressure</td><td>Internal leakage from a casting / housing defect</td><td>Replace the spool section</td></tr>
+            <tr><td>Does not build pressure</td><td>Relief out of adjustment, or jam nut / adjust screw loose</td><td>Readjust the relief and tighten the jam nut</td></tr>
+            <tr><td>Does not build pressure</td><td>Relief over- or under-torqued into the cavity</td><td>Tighten to the proper torque value (value not stated in this manual)</td></tr>
+            <tr><td>Does not build pressure</td><td>Relief or anti-void stuck open from contamination, or damaged / worn</td><td>Disassemble and clean, or replace</td></tr>
+            <tr><td>Function speed slow</td><td>Spool not fully shifted (linkage, end-mechanism parts, or insufficient pilot pressure)</td><td>Inspect and repair handle linkage or end-mechanism parts; check pilot pressure if the section is pilot-operated</td></tr>
+            <tr><td>Function speed slow</td><td>Contamination in a main or workport relief, or in an anti-void valve</td><td>Disassemble and clean, or replace the relief / anti-void assembly</td></tr>
+            <tr><td>Spool metering jerky / inconsistent</td><td>Dirty or damaged handle linkage, or linkage not aligned with the spools</td><td>Clean, inspect, repair or replace. Adjust so the linkage does not bind or interfere</td></tr>
+            <tr><td>Spool metering jerky / inconsistent</td><td>Spool binding in the housing</td><td>Remove the spool, inspect for damage or wear, clean and reassemble, or replace the section</td></tr>
+            <tr><td>Spool sticks / does not return to center</td><td>Dirty or damaged / misaligned linkage</td><td>Clean, inspect, repair, replace or realign</td></tr>
+            <tr><td>Spool sticks / does not return to center</td><td>Dirty hydraulic oil</td><td>Change oil / replace hydraulic filter(s)</td></tr>
+            <tr><td>Spool sticks / does not return to center</td><td>Foreign material between spool and housing, or bent spool, or damaged housing</td><td>Remove and inspect; clean and reassemble, or replace the section</td></tr>
+            <tr><td>Spool sticks / does not return to center</td><td>Damaged spring cap, incorrect or broken centering spring, or detent assembled wrongly</td><td>Disassemble and replace worn or damaged parts; reassemble a detent in the correct order</td></tr>
+            <tr><td>Spool sticks / does not return to center</td><td>Stack incorrectly assembled / torqued, or not mounted on 3 points</td><td>Reassemble in the correct order and torque; use only 3 mounting points</td></tr>
+            <tr><td>Spool does not stay in detented position</td><td>Broken detent spring, worn detent sleeve, kick-out setting too low, or dirt in the detent</td><td>Disassemble and replace or clean; readjust the kick-out setting if applicable</td></tr>
+            <tr><td>Does not hold load / excessive cylinder drift</td><td>Damaged cylinder, leaking hose or fittings</td><td>Repair or replace those parts</td></tr>
+            <tr><td>Does not hold load / excessive cylinder drift</td><td>Spool not fully centered in neutral</td><td>Clean / inspect linkage; inspect the spool for damage or wear</td></tr>
+            <tr><td>Does not hold load / excessive cylinder drift</td><td>Leakage past a workport relief or anti-void, damaged cavity/seat, or worn spool section</td><td>Clean or replace the relief / anti-void; check and readjust pressure if needed; replace the section if the seat or spool is worn</td></tr>
+            <tr><td>Load / cylinder has momentary “droop” or drift</td><td>Missing or damaged check-valve poppet (or spring)</td><td>Disassemble the stack and inspect; replace worn or damaged parts</td></tr>
+            <tr><td>Relief setting too low / too high</td><td>Incorrect adjustment, contamination, loose adjust screw / jam nut, relief not torqued into the housing, or a damaged relief</td><td>Check and readjust within the recommended range; clean or replace; tighten the jam nut; ensure proper installation torque (value not stated in this manual)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PARTS -->
+    <section id="parts" class="stage">
+      <h2>Parts &amp; kits</h2>
+      <p class="lede">Official kit contents are from §4.7, p. 61. After that are research and example lists that are <strong>not</strong> in the manual — verify those against your valve.</p>
+
+      <figure>
+        <img src="figures/fig-sealkit.jpg" alt="Exploded spool section showing spool o-rings and wipers at both ends, section o-rings including the inlet section o-ring, plus load-check poppet and spring" width="1043" height="703" loading="lazy">
+        <figcaption>Seal / service kit items on a spool section. Official manual §4.7, p. 61. (1) spool o-ring 130, (2) section o-ring 564, (3) check poppet 5011, (4) wiper 5029, (5) spring 5064.</figcaption>
+      </figure>
+
+      <div class="kit">
+        <h3>Husco 51086 — seal kit for a 1-section valve</h3>
+        <p>Official kit, §4.7, p. 61.</p>
+        <ul>
+          <li>Item 130 — spool o-ring, AS568A-113 70 duro nitrile, qty 2</li>
+          <li>Item 564 — section o-ring, AS568A-228 75 duro nitrile, qty 2</li>
+          <li>Item 5029 — wiper, qty 2</li>
+        </ul>
+        <p>Scale this idea up by section count: two spool o-rings and two wipers per spool section; section o-rings are one per joint including inlet-to-first and last-to-outlet (the 5-section service kit ships 6 of item 564).</p>
+      </div>
+
+      <div class="kit">
+        <h3>Service kit for a 1-section valve (poppet + spring included)</h3>
+        <p>Official contents, §4.7, p. 61 — <strong>no Husco part number is printed</strong> in the Part No. column of the manual for this kit.</p>
+        <ul>
+          <li>130 — AS568A-113, qty 2</li>
+          <li>564 — AS568A-228, qty 2</li>
+          <li>5011 — check-valve poppet, qty 1</li>
+          <li>5029 — wiper, qty 2</li>
+          <li>5064 — spring, qty 1</li>
+        </ul>
+      </div>
+
+      <div class="kit">
+        <h3>Husco 61530 — service kit for a 5-section valve</h3>
+        <p>Official kit, §4.7, p. 61.</p>
+        <ul>
+          <li>130 — AS568A-113, qty 10</li>
+          <li>564 — AS568A-228, qty 6</li>
+          <li>5011 — check-valve poppet, qty 5</li>
+          <li>5029 — wiper, qty 10</li>
+          <li>5064 — spring, qty 5</li>
+        </ul>
+      </div>
+
+      <div class="kit callout assume">
+        <h3>Bandit 900-3946-84 (per section) — from research, not in the manual</h3>
+        <p>Quoted as a common OEM-labelled kit per section. <strong>Verify against your valve and the official Husco numbers above</strong> before you order or install.</p>
+      </div>
+
+      <div class="kit">
+        <h3>Example: 3-spool ASV RC30 reseal list (Matt’s)</h3>
+        <p>Useful context for one ASV RC30 valve, not a universal official kit. The extra cap seals match the hydraulic-pilot end mechanism in §3.4, p. 35 (kit B12-108) — they are <em>not</em> in 51086.</p>
+        <ul>
+          <li>6× AS568-113 spool-end seals (official item 130, AS568A-113) — two per spool</li>
+          <li>6× Husco 5029 wipers — two per spool</li>
+          <li>6× AS568-019 cap-face o-rings — matches 41-019, two per hydraulic-pilot end mechanism</li>
+          <li>3× AS568-022 spring-end cap o-rings — matches 5141, one per end mechanism</li>
+          <li>3× Husco 55047 backup rings — one per end mechanism</li>
+          <li>4× AS568-228 section-joint o-rings — official item 564, AS568A-228; four joints on a 3-section stack (inlet + two between sections + outlet)</li>
+        </ul>
+        <p>If your caps are mechanical spring-return (B10-100), you do not need the 019 / 022 / 55047 parts. Confirm the end caps on the valve in front of you.</p>
+      </div>
+
+      <div class="card">
+        <h3>Individual official parts (also in the kits)</h3>
+        <ul>
+          <li>Spool o-ring item <span class="pn">130</span> — AS568A-113, 70 duro nitrile</li>
+          <li>Section o-ring item <span class="pn">564</span> — AS568A-228, 75 duro nitrile</li>
+          <li>Wiper <span class="pn">5029</span></li>
+        </ul>
+        <p class="cite">§4.7, p. 61; also listed on end-mechanism pages in §3.4.</p>
+      </div>
+    </section>
+
+    <!-- TORQUES -->
+    <section id="torques" class="stage">
+      <h2>Torque table</h2>
+      <p class="lede">Every number below is printed in SSL-2000 Rev 12/07. If a fastener is not in this table, this manual did not give a torque for it.</p>
+
+      <div class="table-wrap">
+        <table class="torque-hl">
+          <thead>
+            <tr><th>Fastener</th><th>Torque</th><th>Tool</th><th>Source</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lower (2) tie-rod nuts</td>
+              <td>18 ± 2 ft-lbs<br>24.4 ± 2.7 N-m</td>
+              <td>½″ hex, thin-wall socket or box wrench</td>
+              <td>§3.1 p. 26; §4.8 p. 62</td>
+              <td>Torque these first. Valve on its feet on a flat surface; keep all feet in contact. Hand-tighten all three nuts first and apply downward pressure on inlet and outlet for alignment.</td>
+            </tr>
+            <tr>
+              <td>Upper tie-rod nut</td>
+              <td>33 ± 3.5 ft-lbs<br>44.7 ± 4.7 N-m</td>
+              <td>9/16″ hex</td>
+              <td>§3.1 p. 26; §4.8 p. 62</td>
+              <td>Torque after the two lower nuts. Hardened washers required if the assembly has more than eight sections.</td>
+            </tr>
+            <tr>
+              <td>Seal-plate cap screws</td>
+              <td>7 ± 1.0 ft-lbs<br>9.5 ± 1.4 N-m</td>
+              <td>3/16″ Allen (¼-20 × 0.75″ socket-head typ. item 5035)</td>
+              <td>§3.4 p. 29; detent install p. 42</td>
+              <td>§3.3 says to complete “seal plate cap screw installation and torque” but the numeric value is on the §3.4 drawings and in the detent installation text.</td>
+            </tr>
+            <tr>
+              <td>Spool end (into the spool)</td>
+              <td>7 ± 1.0 ft-lbs<br>9.5 ± 1.4 N-m</td>
+              <td>3/16″ Allen</td>
+              <td>§3.4 p. 29; pp. 41–42</td>
+              <td>Clean threads, apply Loctite 242 (blue). Do not exceed 7 ft-lbs (9.5 N-m) — the manual warns that over-torque will deform the spool and cause bind. Detent text: spring takes about 25 lbs to compress during assembly; about 30 lbs pre-load during disassembly.</td>
+            </tr>
+            <tr>
+              <td>Hydraulic-pilot cap screws</td>
+              <td>7 ± 1.0 ft-lbs<br>9.5 ± 1.4 N-m</td>
+              <td>3/16″ Allen (¼-20 × 1.50″ and × 3.00″)</td>
+              <td>§3.4 p. 35</td>
+              <td>Items 5243 and 52824 on kit B12-108, two places each.</td>
+            </tr>
+            <tr>
+              <td>#6 SAE plug, Husco 11120</td>
+              <td>16–20 ft-lbs<br>22–27 N-m</td>
+              <td>¼″ Allen (9/16-18 thread)</td>
+              <td>§4.6 p. 60</td>
+              <td>Includes o-ring AS568A-906 90 duro nitrile.</td>
+            </tr>
+            <tr>
+              <td>#8 SAE plug, Husco 11150</td>
+              <td>30–36 ft-lbs<br>41–49 N-m</td>
+              <td>15/16″ hex (3/4-16 thread)</td>
+              <td>§4.6 p. 60</td>
+              <td>Includes o-ring AS568A-908 90 duro nitrile.</td>
+            </tr>
+            <tr>
+              <td>#10 SAE plug, Husco 11180</td>
+              <td>43–53 ft-lbs<br>58–72 N-m</td>
+              <td>1″ hex (7/8-14 thread)</td>
+              <td>§4.6 p. 60</td>
+              <td>Includes o-ring AS568A-910 90 duro nitrile.</td>
+            </tr>
+            <tr>
+              <td>#12 SAE plug, Husco 11210</td>
+              <td>66–82 ft-lbs<br>89–111 N-m</td>
+              <td>1¼″ hex (1 1/16-12 thread)</td>
+              <td>§4.6 p. 60</td>
+              <td>Includes o-ring AS568A-912 90 duro nitrile.</td>
+            </tr>
+            <tr>
+              <td>Direct-acting solenoid end mechanism (some fasteners)</td>
+              <td>5 ± 1.0 ft-lbs (6.8 N-m) on the ** mark; 7 ± 1.0 ft-lbs on the * mark</td>
+              <td>See §3.4 p. 37 drawing</td>
+              <td>§3.4 p. 37</td>
+              <td>Only if your valve has the solenoid end. Use the asterisks on that page; this table does not re-guess which hardware is which beyond those marks.</td>
+            </tr>
+            <tr>
+              <td>Relief valve into cavity / relief jam nut</td>
+              <td>Not stated</td>
+              <td>—</td>
+              <td>§2 refers to “proper torque” but gives no number</td>
+              <td>Do not invent a value.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cite">Lever and joystick kits in §3.5 (pp. 44–46) have their own torques, including a 10 ± 1.0 ft-lbs callout on the mechanical joystick page. See the official manual if you are fitting those kits.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Workshop aid compiled from the Husco International <em>5000 Valve Series Service Manual</em>, SSL-2000 Rev 12/07 (VA-5000). Figures are cropped excerpts of that manual and are cited by section and printed page. Husco and related marks belong to their owners. This guide is not a substitute for the official manual or for the machine service manual.</p>
+    <p>Checked steps are stored only in this browser (localStorage). No torque or procedure in the official manual was invented here.</p>
+  </footer>
+
+  <div class="offline-pill" id="offline-pill" role="status"></div>
+  <script src="figures.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
