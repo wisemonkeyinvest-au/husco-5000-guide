@@ -8,6 +8,17 @@ Mobile-first workshop guide for servicing and complete seal replacement on a **H
 
 This app is a bench aid, not a substitute for the official manual. Every torque and procedure in the guide is taken from that manual and cited by section and printed page. Where the manual is silent, the app says so. No torque values were invented.
 
+
+## GitHub Pages
+
+The deploy workflow is in `.github/workflows/pages.yml`. The first run could not enable Pages automatically (`Resource not accessible by integration`). One-time fix:
+
+1. Open [Settings → Pages](https://github.com/wisemonkeyinvest-au/husco-5000-guide/settings/pages)
+2. Under **Build and deployment → Source**, choose **GitHub Actions**
+3. Re-run the **Deploy Pages** workflow from the Actions tab (or push a commit)
+
+After that, the site should be at the live URL above.
+
 ## Use it
 
 - Open the live URL on a phone (large tap targets, checklists, torque table).
