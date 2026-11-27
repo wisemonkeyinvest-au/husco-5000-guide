@@ -4,6 +4,18 @@
     "overview", "prep", "disassembly", "seals",
     "reassembly", "testing", "troubleshoot", "parts", "torques"
   ];
+  const STAGE_LABELS = {
+    overview: "Overview",
+    prep: "Prep",
+    disassembly: "Disassembly",
+    seals: "Seals",
+    reassembly: "Reassembly",
+    testing: "Testing",
+    troubleshoot: "Troubleshoot",
+    parts: "Parts",
+    torques: "Torques"
+  };
+  const MORE_STAGES = ["overview", "troubleshoot", "parts", "torques"];
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -24,22 +36,84 @@
     return stages.includes(hash) ? hash : "overview";
   }
 
+  function navLinks() {
+    return $$(".stage-nav a, .bottom-nav a, .more-sheet a");
+  }
+
+  function closeMore() {
+    const sheet = $("#more-sheet");
+    const backdrop = $("#more-backdrop");
+    const toggle = $("#more-toggle");
+    if (sheet) sheet.hidden = true;
+    if (backdrop) backdrop.hidden = true;
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  }
+
+  function openMore() {
+    const sheet = $("#more-sheet");
+    const backdrop = $("#more-backdrop");
+    const toggle = $("#more-toggle");
+    if (sheet) sheet.hidden = false;
+    if (backdrop) backdrop.hidden = false;
+    if (toggle) toggle.setAttribute("aria-expanded", "true");
+  }
+
+  function toggleMore() {
+    const sheet = $("#more-sheet");
+    if (!sheet || sheet.hidden) openMore();
+    else closeMore();
+  }
+
+  function updatePager(id) {
+    const i = stages.indexOf(id);
+    $$(".stage-pager").forEach((pager) => {
+      const prev = pager.querySelector(".pager-prev");
+      const next = pager.querySelector(".pager-next");
+      if (prev) {
+        if (i > 0) {
+          prev.classList.remove("pager-disabled");
+          prev.setAttribute("href", "#" + stages[i - 1]);
+          prev.textContent = "← " + STAGE_LABELS[stages[i - 1]];
+        } else {
+          prev.classList.add("pager-disabled");
+          prev.removeAttribute("href");
+          prev.textContent = "← Start";
+        }
+      }
+      if (next) {
+        if (i < stages.length - 1) {
+          next.classList.remove("pager-disabled");
+          next.setAttribute("href", "#" + stages[i + 1]);
+          next.textContent = STAGE_LABELS[stages[i + 1]] + " →";
+        } else {
+          next.classList.add("pager-disabled");
+          next.removeAttribute("href");
+          next.textContent = "End";
+        }
+      }
+    });
+  }
+
   function showStage(id) {
     if (!stages.includes(id)) id = "overview";
     $$(".stage").forEach((el) => el.classList.toggle("active", el.id === id));
-    $$(".stage-nav a").forEach((a) => {
+    navLinks().forEach((a) => {
       a.classList.toggle("active", a.getAttribute("href") === "#" + id);
     });
+    const moreToggle = $("#more-toggle");
+    if (moreToggle) moreToggle.classList.toggle("active", MORE_STAGES.includes(id));
     const heading = $("#" + id + " h2");
     if (heading && document.activeElement && document.activeElement.classList.contains("nav-link")) {
       heading.setAttribute("tabindex", "-1");
       heading.focus({ preventScroll: true });
     }
-    const headerH = $(".site-header")?.offsetHeight || 0;
-    const navH = $(".stage-nav-wrap")?.offsetHeight || 0;
     window.scrollTo({ top: 0 });
-    // keep sticky nav from covering nothing at top
-    void headerH; void navH;
+    const activePill = $(".stage-nav a.active");
+    if (activePill && activePill.scrollIntoView) {
+      activePill.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+    }
+    updatePager(id);
+    closeMore();
   }
 
   function applyChecks(state) {
@@ -67,12 +141,11 @@
     Object.entries(counts).forEach(([id, c]) => {
       done += c.done;
       total += c.total;
-      const link = $('.stage-nav a[href="#' + id + '"]');
-      if (link) {
+      $$('a[href="#' + id + '"]').forEach((link) => {
         link.classList.toggle("done", c.total > 0 && c.done === c.total);
         const meter = link.querySelector(".meter");
         if (meter && c.total) meter.textContent = c.done + "/" + c.total;
-      }
+      });
     });
     const label = $("#progress-label");
     if (label) label.textContent = total ? done + " / " + total + " steps" : "";
@@ -134,7 +207,25 @@
 
   function bindNav() {
     window.addEventListener("hashchange", () => showStage(currentStage()));
-    $$(".stage-nav a").forEach((a) => a.classList.add("nav-link"));
+    navLinks().forEach((a) => a.classList.add("nav-link"));
+    const toggle = $("#more-toggle");
+    if (toggle) toggle.addEventListener("click", toggleMore);
+    const backdrop = $("#more-backdrop");
+    if (backdrop) backdrop.addEventListener("click", closeMore);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMore();
+    });
+  }
+
+  function injectPagers() {
+    $$(".stage").forEach((sec) => {
+      if (sec.querySelector(".stage-pager")) return;
+      const nav = document.createElement("nav");
+      nav.className = "stage-pager no-print";
+      nav.setAttribute("aria-label", "Previous and next stage");
+      nav.innerHTML = '<a class="pager-prev"></a><a class="pager-next"></a>';
+      sec.appendChild(nav);
+    });
   }
 
   function registerSW() {
@@ -159,6 +250,7 @@
       });
     }
 
+    injectPagers();
     applyChecks(loadState());
     bindChecks();
     bindReset();

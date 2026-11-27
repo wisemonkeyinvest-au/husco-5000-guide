@@ -1,4 +1,4 @@
-const CACHE = "husco-5000-guide-v1";
+const CACHE = "husco-5000-guide-v2";
 const ASSETS = [
   "./",
   "./index.html",
