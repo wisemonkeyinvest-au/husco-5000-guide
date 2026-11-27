@@ -2,22 +2,18 @@
 
 Mobile-first workshop guide for servicing and complete seal replacement on a **Husco 5000** sectional hydraulic control valve (manual: **SSL-2000 Rev 12/07 / VA-5000**).
 
-**Live:** [wisemonkeyinvest-au.github.io/husco-5000-guide](https://wisemonkeyinvest-au.github.io/husco-5000-guide/)
+**Live:** [husco-5000-guide.pages.dev](https://husco-5000-guide.pages.dev/)
 
 **Official manual (PDF):** [VA-5000 Husco Valve Service Manual](https://irp.cdn-website.com/8e9b3e0f/files/uploaded/VA-5000%20Husco%20Valve%20Service%20Manual.pdf)
 
 This app is a bench aid, not a substitute for the official manual. Every torque and procedure in the guide is taken from that manual and cited by section and printed page. Where the manual is silent, the app says so. No torque values were invented.
 
 
-## GitHub Pages
+## Deploy (Cloudflare Pages)
 
-The deploy workflow is in `.github/workflows/pages.yml`. The first run could not enable Pages automatically (`Resource not accessible by integration`). One-time fix:
+`.github/workflows/cloudflare-pages.yml` deploys the static files to the Cloudflare Pages project `husco-5000-guide` on every push to `main`. It needs the `CLOUDFLARE_API_TOKEN` repo secret; without it the workflow skips cleanly.
 
-1. Open [Settings → Pages](https://github.com/wisemonkeyinvest-au/husco-5000-guide/settings/pages)
-2. Under **Build and deployment → Source**, choose **GitHub Actions**
-3. Re-run the **Deploy Pages** workflow from the Actions tab (or push a commit)
-
-After that, the site should be at the live URL above.
+`deploy-cf/build_worker.py` is a fallback that bundles the site into one `_worker.js` for a direct API upload.
 
 ## Use it
 

@@ -2,3 +2,5 @@ source/
 notes/
 *.pdf
 .DS_Store
+deploy-cf/_worker.js
+deploy-cf/execute.js

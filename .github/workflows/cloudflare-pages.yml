@@ -1,0 +1,43 @@
+name: Deploy to Cloudflare Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: true
+env:
+  CF_PROJECT: husco-5000-guide
+  # Account ID is not a secret; the API token is (repo secret CLOUDFLARE_API_TOKEN).
+  CLOUDFLARE_ACCOUNT_ID: fcb5b2031bf870dd3065569183282eeb
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Cloudflare token
+        id: check
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::notice::CLOUDFLARE_API_TOKEN secret not set yet, skipping deploy."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.ok == 'true'
+      - name: Stage site files
+        if: steps.check.outputs.ok == 'true'
+        run: |
+          mkdir -p _site
+          cp -r index.html styles.css app.js sw.js manifest.webmanifest figures.js figures _site/
+      - name: Deploy
+        if: steps.check.outputs.ok == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=${{ env.CF_PROJECT }} --branch=main --commit-dirty=true
