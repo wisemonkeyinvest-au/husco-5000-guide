@@ -38,6 +38,7 @@
       <a href="#troubleshoot" data-stage="troubleshoot"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 7h2v6h-2V7Zm0 8h2v2h-2v-2Zm1-12C6.5 3 2 7.5 2 13s4.5 10 10 10 10-4.5 10-10S17.5 3 12 3Z"/></svg><span class="nav-text"><span class="nav-label">Troubleshoot</span></span></a>
       <a href="#parts" data-stage="parts"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 7.5 12 3l9 4.5V16.5L12 21l-9-4.5V7.5Zm2 1.7v5.6l7 3.5V12.7L5 9.2Zm14 0-7 3.5v7.1l7-3.5V9.2Z"/></svg><span class="nav-text"><span class="nav-label">Parts</span></span></a>
       <a href="#torques" data-stage="torques"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18Zm.8 4v5.2l3.6 2.1-.8 1.4L11 13V7h1.8Z"/></svg><span class="nav-text"><span class="nav-label">Torques</span></span></a>
+      <a href="#photos" data-stage="photos"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 4h6l1.2 2H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.8L9 4Zm3 4.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5Zm0 2A2.5 2.5 0 1 1 9.5 13 2.5 2.5 0 0 1 12 10.5Z"/></svg><span class="nav-text"><span class="nav-label">My photos</span></span><span class="note-count" hidden></span></a>
     </nav>
     <div class="progress-bar" aria-hidden="true"><span id="progress-fill"></span></div>
   </div>
@@ -856,11 +857,25 @@
       </div>
       <p class="cite">Lever and joystick kits in §3.5 (pp. 44–46) have their own torques, including a 10 ± 1.0 ft-lbs callout on the mechanical joystick page. See the official manual if you are fitting those kits.</p>
     </section>
+
+    <section id="photos" class="stage">
+      <h2>My photos</h2>
+      <p class="lede">Photos and notes you attach to steps, grouped by stage. Use them as a bench record of the job.</p>
+      <aside class="callout assume">
+        <h3>Stays on this phone</h3>
+        <p>Photos and notes are saved only on this device. Nothing is uploaded. iPhones may clear site storage if the page isn’t opened for a while — adding this guide to your Home Screen helps it stay put.</p>
+      </aside>
+      <div class="tool-row no-print">
+        <span class="stat" id="album-stat"></span>
+        <button type="button" class="btn btn-danger" id="clear-photos">Clear all photos &amp; notes</button>
+      </div>
+      <div id="album-list"></div>
+    </section>
   </main>
 
   <footer class="footer">
     <p>Workshop aid compiled from the Husco International <em>5000 Valve Series Service Manual</em>, SSL-2000 Rev 12/07 (VA-5000). Figures are cropped excerpts of that manual and are cited by section and printed page. Husco and related marks belong to their owners. This guide is not a substitute for the official manual or for the machine service manual.</p>
-    <p>Checked steps are stored only in this browser (localStorage). No torque or procedure in the official manual was invented here.</p>
+    <p>Checked steps are stored only in this browser (localStorage). Photos and notes stay on this phone only — nothing is uploaded. No torque or procedure in the official manual was invented here.</p>
   </footer>
 
   <nav class="bottom-nav no-print" aria-label="Work stages">
@@ -881,8 +896,17 @@
     <a href="#troubleshoot" data-stage="troubleshoot"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 7h2v6h-2V7Zm0 8h2v2h-2v-2Zm1-12C6.5 3 2 7.5 2 13s4.5 10 10 10 10-4.5 10-10S17.5 3 12 3Z"/></svg><span class="nav-text"><span class="nav-label">Troubleshoot</span></span></a>
     <a href="#parts" data-stage="parts"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 7.5 12 3l9 4.5V16.5L12 21l-9-4.5V7.5Zm2 1.7v5.6l7 3.5V12.7L5 9.2Zm14 0-7 3.5v7.1l7-3.5V9.2Z"/></svg><span class="nav-text"><span class="nav-label">Parts</span></span></a>
     <a href="#torques" data-stage="torques"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18Zm.8 4v5.2l3.6 2.1-.8 1.4L11 13V7h1.8Z"/></svg><span class="nav-text"><span class="nav-label">Torques</span></span></a>
+    <a href="#photos" data-stage="photos"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 4h6l1.2 2H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.8L9 4Zm3 4.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5Zm0 2A2.5 2.5 0 1 1 9.5 13 2.5 2.5 0 0 1 12 10.5Z"/></svg><span class="nav-text"><span class="nav-label">My photos</span></span><span class="note-count" hidden></span></a>
   </div>
   <div class="offline-pill" id="offline-pill" role="status"></div>
+
+  <div class="lightbox no-print" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">Close</button>
+    <img id="lightbox-img" alt="">
+    <p class="lightbox-cap" id="lightbox-cap"></p>
+    <button type="button" class="btn btn-danger" id="lightbox-delete">Delete photo</button>
+  </div>
+
   <script src="figures.js"></script>
   <script src="app.js"></script>
 </body>
